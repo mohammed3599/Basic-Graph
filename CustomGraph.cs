@@ -46,5 +46,53 @@ namespace Basic_Graph
         {
             return graph;
         }
+
+
+        //Depth First Search
+        public void DFS(String startVertex)
+        {
+            HashSet<String> visited = new HashSet<String>();
+            DFSRecursive(startVertex, visited);
+        }
+
+        //DFS Recursive
+        public void DFSRecursive(String currentVertex, HashSet<String> visited)
+        {
+            Console.WriteLine(currentVertex + " ");
+            foreach (String vertex in graph[currentVertex])
+            {
+                if (!visited.Contains(vertex))
+                {
+                    DFSRecursive(vertex, visited);
+                }
+            }
+        }
+
+        //DFS with Stack
+        public void DFSWithStack(String startVertex)
+        {
+            HashSet<String> visited = new HashSet<String>();
+            Stack<String> stack = new Stack<String>();
+
+            stack.Push(startVertex);
+
+            while (stack.Count > 0)
+            {
+                String currentVertex = stack.Pop();
+                if (!visited.Contains(currentVertex))
+                {
+                    Console.WriteLine(currentVertex + " ");
+                    visited.Add(currentVertex);
+                }
+
+                foreach (String neighborVertex in graph[currentVertex])
+                {
+                    if (!visited.Contains(neighborVertex))
+                    {
+                        stack.Push(neighborVertex);
+                    }
+                }
+            }
+        }
     }
 }
